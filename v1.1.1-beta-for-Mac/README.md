@@ -1,7 +1,10 @@
-# PassKey v1.1.1-beta-for‑macOS
+# PassKey-FileCrypt v1.1.1-beta-for‑macOS
 🟡 Beta测试版｜macOS源码版本
 > ⚠️**不提供预编译app/dmg，仅提供源代码，用户本地自行运行或打包**
 > 移除Windows bat/cmd，保留Linux脚本格式(sh/conf/service)，新增mac专属 plist、mobileconfig 支持
+
+> ⚠️ 本版本属于 v1.x 旧算法：文本用 Caesar/反转/Base64/URL 编码，二进制用 XOR。
+> 这不是强密码学加密，请勿用于重要资料。v1.x 与 v2.x 密文不兼容。
 
 ## ✨项目简介
 Python+Tkinter图形加密工具，支持mac、linux常用脚本与配置文件，文件拖拽，进度显示，密文密钥分离保存。

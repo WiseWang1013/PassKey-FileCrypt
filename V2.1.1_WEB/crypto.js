@@ -1,6 +1,7 @@
 /**
- * PassKey V2.0 WebPWA
- * 与PC Python源码完全互通，XOR批量文件加密
+ * PassKey-FileCrypt v2.1.1 Web
+ * 与 PC Python v2.0 互通，XOR 批量文件加解密
+ * 注意：XOR 是混淆，不是强密码学加密；请勿用于重要资料。
  * 文件名完全自由自定义，不依赖固定文件名
  */
 
@@ -60,12 +61,12 @@ function passwordUnwrapKey(wrappedJsonStr, password) {
  * 批量加密文件列表
  * @param {File[]} fileList 待加密文件数组
  * @param {string} password 口令，空字符串=无密码
- * @param {boolean} useFixedKey true=随机16字节，false=固定测试密钥 PassKeyV2FixedKey1
+ * @param {boolean} useRandomKey true=随机16字节，false=固定测试密钥 PassKeyV2FixedKey1
  * @returns {Promise<{cipherPackageText:string, protectedKeyText:string}>}
  */
-async function batchEncryptFiles(fileList, password, useFixedKey = true) {
+async function batchEncryptFiles(fileList, password, useRandomKey = true) {
     let globalKey;
-    if (useFixedKey) {
+    if (useRandomKey) {
         globalKey = crypto.getRandomValues(new Uint8Array(16));
     } else {
         const fixedText = "PassKeyV2FixedKey1";

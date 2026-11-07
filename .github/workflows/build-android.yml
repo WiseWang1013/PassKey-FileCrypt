@@ -1,9 +1,7 @@
-name: Build Android APK (PassKey离线版)
+name: Build Android APK (experimental Cordova build)
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch: # 支持手动在GitHub页面点击触发打包
+  workflow_dispatch: # 仅手动触发；不是 HBuilder 正式 APK 构建
 
 jobs:
   build:
@@ -48,7 +46,7 @@ jobs:
         run: |
           # 如果 passkey-app 文件夹不存在，则新建cordova项目
           if [ ! -d "passkey-app" ]; then
-            cordova create passkey-app com.wisewang.passkey PassKey
+            cordova create passkey-app com.wisewang.passkeyfilecrypt PassKey-FileCrypt
           fi
           cd passkey-app
           # 清空cordova默认www目录，替换成你的V2.1.1_WEB网页源码
@@ -72,6 +70,6 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PassKey-Offline-APK
+          name: PassKey-FileCrypt-Cordova-APK
           path: ./passkey-app/platforms/android/app/build/outputs/apk/**/*.apk
           retention-days: 90

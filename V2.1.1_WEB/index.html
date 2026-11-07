@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PassKey V2.0 WebPWA</title>
+<title>PassKey-FileCrypt v2.1.1 | 文件加解密</title>
 <link rel="manifest" href="manifest.json">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui, -apple-system, "Microsoft YaHei"}
@@ -35,14 +35,14 @@ input[type="file"]{width:100%;margin:8px 0}
 </head>
 <body>
 <div class="container">
-    <h2>🔐 PassKey V2.0 WebPWA 批量加解密</h2>
+    <h2>🔐 PassKey-FileCrypt v2.1.1 批量加解密</h2>
     <div class="wrap">
         <!--左侧操作面板，手机会自动跑到上面-->
         <div class="card">
             <h3>📤 加密</h3>
             <input type="file" id="encFileInput" multiple>
             <div id="fileList">未选择文件</div>
-            <label><input type="checkbox" id="useRandomKey" checked>随机密钥(推荐)</label>
+            <label><input type="checkbox" id="useRandomKey" checked>随机密钥(推荐；XOR 仍非强加密)</label>
             <button class="btn-green" onclick="startEncrypt()">开始批量加密</button>
 
             <hr style="margin:20px 0">
@@ -57,7 +57,7 @@ input[type="file"]{width:100%;margin:8px 0}
         <div class="card">
             <h3>状态与日志</h3>
             <div id="progressOuter"><div id="progressBar"></div></div>
-            <div id="status">就绪，可选择文件进行加密解密。<br>✅支持自定义密文/密钥文件名，导入不限制文件名</div>
+            <div id="status">就绪，可选择文件进行加密解密。<br>✅支持自定义密文/密钥文件名，导入不限制文件名<br>⚠️ v2 使用 XOR 混淆，不是强密码学加密，请勿用于重要资料</div>
         </div>
     </div>
 </div>

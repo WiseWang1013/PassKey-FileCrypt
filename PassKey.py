@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-PassKey‑Password V2.0
+PassKey-FileCrypt V2.0
 简易批量文件加密解密工具 Windows Only
 ⚠️ V2.0 不兼容 V1.0 ~ V1.1.1‑beta 的旧密文、旧密钥！
+⚠️ XOR 只是混淆，不是强密码学加密；请勿用于重要资料。
 Author: WiseWang1013 https://github.com/WiseWang1013
 仅学习用途，禁止恶意加密、勒索行为
 """
@@ -111,7 +112,7 @@ def decrypt_single_file(cipher_hex: str, protected_key_json: str, password: str,
 class PassKeyV2GUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("PassKey‑Password V2.0 批量文件加密解密工具 | Windows")
+        self.root.title("PassKey-FileCrypt V2.0 批量文件加密解密工具 | Windows")
         self.root.geometry("1100x720")
         self.root.minsize(950, 620)
         # V2.0 纯白主题
@@ -223,12 +224,21 @@ class PassKeyV2GUI:
         self.refresh_file_listbox()
 
     def parse_drop_path(self, raw_data: str) -> list[str]:
+        """解析 tkinterdnd2 的 Tcl 列表；支持带空格的路径（如 {C:\\My File.txt}）"""
+        try:
+            parts = self.root.tk.splitlist(raw_data)
+        except Exception:
+            parts = [raw_data]
+
         out = []
-        parts = raw_data.split()
         for s in parts:
+            if not isinstance(s, str):
+                continue
+            s = s.strip()
             if s.startswith("{") and s.endswith("}"):
                 s = s[1:-1]
-            out.append(s)
+            if os.path.isfile(s):
+                out.append(s)
         return out
 
     # =========文件选择UI=========
@@ -308,7 +318,8 @@ class PassKeyV2GUI:
                 self.set_progress(100)
                 self.set_status("批量加密完成，请导出密文包、统一密钥", "#27ae60")
             except Exception as e:
-                messagebox.showerror("加密异常", str(e))
+                err_text = str(e)
+                self.root.after(0, lambda msg=err_text: messagebox.showerror("加密异常", msg))
                 self.set_status("加密失败", "#e74c3c")
             finally:
                 self.is_working = False
@@ -391,7 +402,8 @@ class PassKeyV2GUI:
                 self.preview_append("\n✅全部解密完成！点击【批量导出解密文件】选择输出文件夹")
                 self.set_status("批量解密完成，请导出文件", "#27ae60")
             except Exception as err:
-                messagebox.showerror("解密失败", str(err))
+                err_text = str(err)
+                self.root.after(0, lambda msg=err_text: messagebox.showerror("解密失败", msg))
                 self.set_status("解密失败", "#e74c3c")
             finally:
                 self.is_working = False
@@ -419,22 +431,27 @@ class PassKeyV2GUI:
         txt = tk.Text(win, font=("Microsoft YaHei", 10), wrap="word")
         txt.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         license_text = """
-PassKey‑Password V2.0 批量文件加密解密工具
+PassKey-FileCrypt V2.0 批量文件加密解密工具
 Windows 专用版本
 
 原项目作者：WiseWang1013
-Github主页：https://github.com/WiseWang1013
+Github主页：https://github.com/WiseWang1013/PassKey-FileCrypt
 
 【重要兼容性警告】
 ⚠️ V2.0 完全不兼容 V1.0 ~ V1.1.1‑beta 的密文与密钥！
 旧版本生成的密文密钥无法被V2解密。
 
+【安全警告】
+⚠️ 本项目使用 XOR 混淆，不是现代密码学加密。
+没有 KDF、盐、Nonce、HMAC/AEAD，不能防篡改。
+请勿用于密码、证件、财务、工作机密等重要资料。
+
 【加密模式说明】
-1.随机密钥(推荐)：每次加密生成全新随机16字节密钥，安全性高。
+1.随机密钥(推荐)：每次加密生成全新随机16字节密钥；但 XOR 仍不是强加密。
 2.固定测试密钥：使用写死固定密钥，仅用于测试调试，不要正式加密重要文件。
 
 【功能说明】
-‑支持几乎全部Windows文件格式，全部文件统一二进制异或加密
+‑支持几乎全部Windows文件格式，全部文件统一二进制异或
 ‑批量多选文件加密，全部文件使用同一个密钥
 ‑批量解密，导出时自动保持原始文件名、原始后缀格式不变
 ‑支持不设置密码（口令留空）

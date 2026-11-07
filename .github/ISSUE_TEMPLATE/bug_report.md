@@ -9,9 +9,9 @@ assignees: ''
 ## 📋 问题描述
 清晰描述你遇到的程序问题
 
-## 💻 操作系统 & PassKey版本
-- 操作系统：Windows / Linux / macOS
-- PassKey版本：
+## 💻 操作系统 & PassKey-FileCrypt 版本
+- 操作系统：Windows / Linux / macOS / Web / Android
+- 版本：v1.0 / v1.1 / v1.1.1-beta / v2.0 / v2.1.1
 
 ## 📝 复现步骤
 1. 

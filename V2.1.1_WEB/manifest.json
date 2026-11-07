@@ -1,11 +1,11 @@
 {
-  "name": "PassKey 通行密钥",
-  "short_name": "PassKey",
+  "name": "PassKey-FileCrypt v2.1.1",
+  "short_name": "FileCrypt",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#111111",
-  "theme_color": "#222222",
-  "description": "PassKey 批量文件加解密网页版，与PC桌面版互通，支持自定义密文密钥文件名，可打包APK",
+  "background_color": "#f5f5f7",
+  "theme_color": "#2563eb",
+  "description": "PassKey-FileCrypt 批量文件加密/解密网页版；XOR 混淆，非强密码学加密；与桌面 v2.0 互通",
   "icons": [
     {
       "src": "icon-512.png",

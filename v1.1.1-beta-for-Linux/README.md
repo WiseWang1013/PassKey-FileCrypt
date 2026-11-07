@@ -1,6 +1,9 @@
-# PassKey v1.1.1-beta-for-Linux
+# PassKey-FileCrypt v1.1.1-beta-for-Linux
 🟡 Beta测试版｜**Linux专属版本**
 > 本分支仅面向Linux，移除Windows相关格式（bat/cmd），新增sh、conf、systemd service格式支持
+
+> ⚠️ 本版本属于 v1.x 旧算法：文本用 Caesar/反转/Base64/URL 编码，二进制用 XOR。
+> 这不是强密码学加密，请勿用于重要资料。v1.x 与 v2.x 密文不兼容。
 
 ## ✨项目简介
 基于Python+Tkinter+tkinterdnd2开发的本地图形化加密工具

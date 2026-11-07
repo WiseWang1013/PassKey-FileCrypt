@@ -1,142 +1,155 @@
-# 🔐 PassKey 通行密钥｜多格式文件加密工具
-![PassKey主界面](./screenshots/main_ui.png)
-基于Python+Tkinter构建的图形化加密GUI工具，支持文件拖拽、文本/二进制文件加解密，Windows可打包单文件EXE。
+# 🔐 PassKey-FileCrypt｜本地批量文件加密 / 解密工具
 
-> ⚠️ **版本重大警告：V2.0 / v2.1.1 不兼容 v1.0 ~ v1.1.1‑beta 的旧密文、旧密钥！旧版本加密的文件无法使用V2.0及v2.1.1解密。**
+> **先说明：这个项目不是密码管理器，也不是 WebAuthn 的 Passkey。**
+> 它的实际功能是：把一批文件打包成 `cipher.txt` + `key.txt`，再用口令解密。
+> 仓库原名 `PassKey-PassWord`，2026-11 重命名为 **PassKey-FileCrypt**。
 
-> 🔗 **国内完整镜像仓库(Gitee)：[Gitee‑PassKey‑PassWord](https://gitee.com/WiseWang1013/PassKey-PassWord)**
-> 📱 Android 安卓离线版源码存放于Gitee仓库 `PasskyForAndroid` 文件夹，GitHub不再存放安卓MAUI源码，仅提供编译好的APK安装包。
-
-**✅ 当前最新版本：v2.1.1（Web网页 + Android APK 新增版）**
-**✅ Windows桌面正式版本：v2.0（批量加密新版）**
-**✅ 历史版本：v1.1（UI美化版）、v1.0（原始基础版）**
-**🟡 Beta测试源码版：v1.1.1‑beta‑for‑Linux / v1.1.1‑beta‑for‑Mac**
-**💡 版本互通说明：v1.0 / v1.1 / v1.1.1‑beta 之间加密文件双向互通；v2.0、v2.1.1使用全新加密逻辑，与旧版本完全隔离。**
-
----
-
-## ✨ 核心功能
-### 🆕 v2.1.1 新增特性（Web网页与安卓APK版本）
-- 基于 **HTML + CSS + JavaScript** 开发Web网页端，浏览器直接打开运行，无需安装任何程序
-- 网页源码目录：[`V2.1.1_WEB`](https://github.com/WiseWang1013/PassKey-PassWord/tree/main/V2.1.1_WEB)
-- 网页版加密逻辑与PC v2.0保持完全一致，密文、密钥双向互通
-- 网页源码可编译打包为 **安卓离线APK** 和 **安卓联网APK**两个版本
-- 网页本身可直接作为Windows浏览器联网版使用，支持密钥云端备份、跨设备同步密钥
-
-### 🆕 v2.0 桌面版新增特性
-- **批量加密解密**：一次性多选多个文件，全部文件使用同一套密钥
-- **统一异或加密**：不再区分文件后缀专属加密策略，支持几乎全部Windows文件格式
-- **大文件多文件进度显示**：加密解密实时展示子任务进度
-- **无密码加密**：支持口令留空，不设置密码保护
-- **加密模式选择**：随机安全密钥(推荐) / 固定测试密钥（仅调试使用）
-- **纯白简约全新UI**：左侧操作面板，右侧预览区域
-- **使用协议弹窗**：内置版权、免责、版本说明弹窗
-- **批量导出解密文件**：自动保留原始文件名与后缀格式
-
-### 旧版本已有功能（v1.x）
-- **文本加密解密**：支持手动输入文字内容加密
-- **全类型文件加密**：支持图片、文档、压缩包等二进制文件加解密
-- **拖拽快速导入**：直接拖拽文件进程序，无需手动选择路径
-- **完整导出体系**：独立导出密文、密钥、解密文件
-- **各平台本地打包**：用户可在本机打包对应平台可执行程序
-
-> 📌 v2.0桌面版优先维护Windows；Linux、macOS暂不更新新版本，可继续使用旧Beta源码。
-
----
-
-## 🌐 Web网页版 & 📱 Android APK
-> Web网页源码存放目录：[`V2.1.1_WEB`](https://github.com/WiseWang1013/PassKey-PassWord/tree/main/V2.1.1_WEB)，采用 **HTML + CSS + JavaScript** 原生前端开发，全部加解密运算在浏览器本地执行，加密逻辑和PC v2.0保持一致，密文、密钥双向互通。
+> ## ⚠️ 安全警告（必读）
 >
-> 📱 **Android MAUI源码移步Gitee仓库：[Gitee PasskyForAndroid](https://gitee.com/WiseWang1013/PassKey-PassWord/tree/master/PasskyForAndroid)**
-> GitHub仅发布编译完成的APK安装包，源码请到国内Gitee查看。
-
-**🚀 在线直接使用网页版：**
-👉 [PassKey v2.1.1 Web在线工具](https://wisewang1013.github.io/PassKey-PassWord/V2.1.1_WEB/index.html)
-
-> 网页源码可编译打包为**安卓离线APK** 和 **安卓联网APK**两个版本；网页本身可直接作为Windows浏览器联网版使用。
-> 编译完成的APK安装包，后续会发布到Release页面：👉 [GitHub Release发布页](https://github.com/WiseWang1013/PassKey-PassWord/releases)
-
-### 版本区分
-1. **Windows网页联网版（浏览器直接打开）**
-    - ✅ 网页直接运行，不用下载EXE，打开上面在线链接即可使用
-    - ✅ 具备网络权限，支持密钥云端备份、跨设备同步密钥
-    - ✅ 加密算法与v2.0桌面版完全一致，密文互通
-2. **Android APK - 离线版（推荐隐私优先）**
-    - ❌ 移除全部网络权限，APP完全无法访问互联网
-    - ✅ 加密解密全部在手机本地完成，文件、密钥不会上传任何服务器
-    - ⚠️ 未签名测试包，安装需开启手机「允许安装未知来源应用」
-3. **Android APK - 联网版**
-    - ✅ 拥有网络访问权限，支持密钥云端备份同步
-    - ⚠️ 联网会产生数据上传，注重隐私建议选择离线APK
-
-> 💡 重要：Web/安卓全部版本，**加密算法与PC v2.0一致，和v1.x旧版本依旧不兼容**！
-> 网页功能：支持多文件批量加密、批量解密；自定义密文包、密钥文件名；日志状态实时输出。
+> - **v2 使用的是 XOR（16 字节密钥）+ 口令 XOR 包装**，不是现代密码学加密。
+> - **v1 使用的是 Caesar / 反转 / Base64 / URL 编码**，只算混淆。
+> - 没有 KDF、盐、Nonce、HMAC/AEAD；不能防篡改，不能抗已知明文、密钥复用等分析。
+> - **不要用它保护密码、证件、财务、工作机密等重要资料。**
+> - 需要真正的加密，请使用 VeraCrypt、7-Zip（AES-256）、age、GPG 等成熟工具。
+> - 口令一旦丢失，文件无法恢复。
 
 ---
 
-## 📂 项目文件说明
-- [`PassKey.py`](https://github.com/WiseWang1013/PassKey-PassWord/blob/main/PassKey.py)：项目主程序完整源码（v2.0 Windows桌面版）
-- [`app.ico`](https://github.com/WiseWang1013/PassKey-PassWord/blob/main/app.ico)：Windows软件自定义图标文件
-- [`build.bat`](https://github.com/WiseWang1013/PassKey-PassWord/blob/main/build.bat)：Windows一键打包 EXE 脚本
-- [`PassKey.spec`](https://github.com/WiseWang1013/PassKey-PassWord/blob/main/PassKey.spec)：PyInstaller 打包配置文件
-- [`hook‑tkinterdnd2.py`](https://github.com/WiseWang1013/PassKey-PassWord/blob/main/hook-tkinterdnd2.py)：拖拽功能专属打包依赖文件（解决打包失效问题）
-- [`V2.1.1_WEB/`](https://github.com/WiseWang1013/PassKey-PassWord/tree/main/V2.1.1_WEB) 📂 v2.1.1 Web网页版源码，基于HTML+CSS+JavaScript开发，用于网页在线运行、编译安卓APK
-- [`v1.0/`](https://github.com/WiseWang1013/PassKey-PassWord/tree/main/v1.0)：历史原版源码文件夹（保留初代版本）
-- [`v1.1.1‑beta‑for‑Linux/`](https://github.com/WiseWang1013/PassKey-PassWord/tree/main/v1.1.1-beta-for-Linux) 📂 Linux专属Beta源码版本（基于v1.1.1，**不包含v2.0/v2.1.1新功能**）
-- [`v1.1.1‑beta‑for‑Mac/`](https://github.com/WiseWang1013/PassKey-PassWord/tree/main/v1.1.1-beta-for-Mac) 📂 macOS专属Beta源码版本（基于v1.1.1，**不包含v2.0/v2.1.1新功能**）
-> 📱 Android MAUI源码：移步Gitee仓库 `PasskyForAndroid`
+## ✅ 实际能做什么
 
-👉 [Linux Beta版本 v1.1.1‑beta‑for‑Linux](./v1.1.1_beta-for-Linux/README.md)
-👉 [macOS Beta版本 v1.1.1‑beta‑for‑Mac](./v1.1.1-beta-for-Mac/README.md)
+- 批量选择多个文件，生成两个文本文件：
+  - `cipher.txt`：JSON 密文包，文件内容以 hex 保存；
+  - `key.txt`：JSON 密钥文件，包含 16 字节 XOR 密钥（可被口令包装）。
+- 解密必须同时有 `cipher.txt`、`key.txt` 和当时的口令；无口令模式则直接使用 `key.txt`。
+- 批量解密后按原始文件名、原后缀导出。
+- 桌面、Web、Android 的 v2 密文/密钥互通。
+- 支持拖拽文件、进度条、日志、随机密钥/固定测试密钥。
+- v2 桌面端可打包成单文件 EXE；Web 端浏览器直接运行；Android 端用 SAF 写入自选目录或“下载”目录。
 
-## 📄 项目配套文档
-- [版本更新日志 CHANGELOG.md](./CHANGELOG.md)
-- [贡献指南 CONTRIBUTING.md](./CONTRIBUTING.md)
-- [Bug反馈模板](./.github/ISSUE_TEMPLATE/bug_report.md)
-- [功能建议模板](./.github/ISSUE_TEMPLATE/feature_request.md)
+## 🧩 版本与平台
 
----
+| 版本 | 形态 | 实际说明 | 兼容性 |
+| --- | --- | --- | --- |
+| v1.0 | Python + Tkinter | 文本按后缀做 Caesar/反转/Base64/URL 编码，二进制用 XOR | 与 v1.1、v1.1.1-beta 互通 |
+| v1.1 | Python + Tkinter | 深色 UI，核心算法同 v1.0 | 与 v1.0、v1.1.1-beta 互通 |
+| v1.1.1-beta | Linux/macOS 源码 | v1 核心 + 平台打包脚本；不提供预编译二进制 | 与 v1.x 互通 |
+| v2.0 | Windows Python + Tkinter | 统一 XOR、批量、随机/固定密钥、纯白 UI | 与 v2.1.1 Web/Android 互通 |
+| v2.1.1 Web | HTML + CSS + JavaScript | 浏览器本地运算，批量加解密；与 v2.0 互通 | 与 v2.0/Android 互通 |
+| v2.1.1 Android | HBuilderX / 5+ App | 通过 `plus.android` 的 SAF 保存文件；离线/联网测试包 | 与 v2.0/Web 互通 |
+| Windows 离线版 | .NET MAUI WebView | 工程名 `PasskyForAndroid`，实际 TFM 是 `net9.0-windows10.0.19041.0`，**不是 Android**；`NoInternet` 是它的发布产物 | v2 |
+| Glass Web | Gitee 额外 UI | `V2.1.1_GLASS_WEB`，液态玻璃风格，核心算法同 v2.1.1 | v2 |
 
-## 📦 运行环境依赖
-Python 3.8 及以上
-pip install tkinterdnd2 pyinstaller
-Linux /macOS 平台请查看对应 v1.1.1‑beta 版本内 README 安装平台专属依赖，v2.0 桌面版暂不支持 Linux/macOS。
+> **v1.x 与 v2.x 完全不兼容**：旧密文/旧密钥不能用 v2 解，v2 密文也不能用 v1 解。
+> v2 桌面、Web、Android 之间可以互相解密。
 
-## 🔨 打包教程
-Windows（打包独立 EXE，v2.0 桌面版）
-安装全部依赖库
-直接双击运行 build.bat
-打包完成，程序输出在 dist 文件夹
-✅ 打包成果：单文件 EXE、带自定义图标、拖拽功能正常可用
-⚠️ Linux /macOS：v2.0 桌面版没有适配；v1.1.1‑beta 分支不能 Windows 交叉编译，请在对应系统内本地编译。
-📱 Android 打包：MAUI源码在Gitee，可本地编译APK；GitHub Release直接下载成品APK。
+## 📥 下载与在线使用
 
-## 📖 v2.0 完整使用说明（桌面 GUI 版）
-运行 PassKey.py 启动软件
-批量导入文件：点击【多选待加密文件】，或者直接把文件拖拽进窗口左侧列表。
-批量加密
-选择加密模式：随机密钥 (推荐) / 固定测试密钥
-点击【批量加密全部文件】，输入口令（可以直接确定，不设置密码）
-加密完成后，分别导出「密文包」和「统一密钥 txt」，两个文件必须同时保存。
-批量解密
-点击【批量解密 (密文 + 密钥)】，依次选择 v2 生成的密文包 txt、统一密钥 txt
-输入加密时设置的口令（无密码直接确定）
-解密完成，点击【批量导出解密文件】，选择保存文件夹，文件会按原始名字、后缀输出。
-✅ v2.0 /v2.1.1 解密必备条件（缺一不可）
-v2.0/v2.1.1 生成的密文包 txt
-v2.0/v2.1.1 生成的统一密钥 txt
-加密时设置的通行口令
-❗ 无法解密 v1.x 版本生成的密文密钥。
+- **GitHub Release**：<https://github.com/WiseWang1013/PassKey-FileCrypt/releases>
+- **Gitee Release**：<https://gitee.com/WiseWang1013/PassKey-FileCrypt/releases>
+- **Web 在线版（如果 GitHub Pages 已启用）**：<https://wisewang1013.github.io/PassKey-FileCrypt/V2.1.1_WEB/index.html>
+- 也可以直接打开仓库里的 `V2.1.1_WEB/index.html`，不需要服务器。
 
-## ⚠️ 重要安全提醒（必读）
-通行口令一旦丢失、遗忘，文件永久无法解密，没有找回手段！
-本项目仅用于 Python 编程学习、开源练习。
-v2.0 桌面版优先适配 Windows 平台；Linux、macOS 仅可使用旧 v1.1.1‑beta 源码，没有 v2 版本。
-v2.1.1 Web 网页版、安卓 APK（离线 / 联网）加密算法同 v2.0 桌面版，同样不兼容 v1.x 旧密文。
-禁止用来加密重要业务、机密资料，重要文件务必备份原始文件。
-安卓 APK 为测试构建包，离线版无网络权限；联网版会支持密钥云端存储。
-禁止利用本工具做恶意加密、锁机、勒索等一切违规违法行为。
+Android APK 是测试构建包，未上架应用商店；安装时需要允许“未知来源”。离线包与联网包的区别主要是网络权限，**当前代码没有实现云端同步**，详见下面的“已知限制”。
 
-## 📜 开源说明
-本项目采用 MIT 开源协议，仅供学习、参考、二次练习。
-任何人都可以查看、学习、修改源码，但禁止商用违规用途。
+## 📂 仓库结构
+
+### GitHub
+
+```
+PassKey.py                  v2.0 Windows 桌面主程序
+V2.1.1_WEB/                 v2.1.1 Web/PWA 源码
+v1.0.0/ v1.1.0/             历史版本源码
+v1.1.1-beta-for-Linux/      Linux Beta 源码
+v1.1.1-beta-for-Mac/        macOS Beta 源码
+docs/ANDROID.md             Android 源码/打包说明
+SECURITY.md                 安全说明
+CHANGELOG.md                版本日志
+CONTRIBUTING.md             贡献指南
+LICENSE                     MIT
+```
+
+### Gitee
+
+```
+PassKey.py                  v2.0 Windows 桌面主程序
+V2.1.1_WEB/                 v2.1.1 Web/PWA 源码
+V2.1.1_GLASS_WEB/           Gitee 额外的液态玻璃 UI 版本
+v1.0.0/ v1.1.0/             历史版本源码
+v1.1.1-beta-for-Linux/      Linux Beta 源码
+v1.1.1-beta-for-Mac/        macOS Beta 源码
+docs/ANDROID.md             Android 源码/打包说明
+SECURITY.md                 安全说明
+LICENSE                     MIT
+```
+
+> 说明：GitHub 和 Gitee 之前出现过结构不一致（Gitee 有 Glass Web，GitHub 缺 LICENSE、`PasskyForAndroid` 只有占位文件）。这次已把 Gitee 源码统一到根目录、给 GitHub 补上 LICENSE，并删除 GitHub 的占位文件，Android 说明放到 `docs/ANDROID.md`。
+
+## 🚀 快速使用
+
+### Windows 桌面版（v2.0）
+
+```powershell
+pip install tkinterdnd2
+python PassKey.py
+```
+
+1. 点“多选待加密文件”，或把文件拖进窗口；
+2. 选择随机密钥（推荐）或固定测试密钥；
+3. 点“批量加密全部文件”，输入口令（可留空）；
+4. 分别导出“密文包”和“统一密钥”两个 txt；
+5. 解密时依次选择 `cipher.txt`、`key.txt`，输入口令，点“批量解密”；
+6. 点“批量导出解密文件”选择输出目录，文件名/后缀会保留。
+
+### Web 版
+
+直接用浏览器打开 `V2.1.1_WEB/index.html`，或访问上面的在线地址：
+
+1. 选择多个待加密文件；
+2. 输入口令，导出 `cipher.txt` / `key.txt`；
+3. 解密时选择这两个 txt，输入口令，浏览器会逐个下载还原文件。
+
+### Android
+
+APK 在 Release 里下载。优先使用 SAF 选择保存目录；在 HBuilder 基座中会退回保存到“下载”文件夹。
+Android 的打包说明、权限和已知问题见 [`docs/ANDROID.md`](docs/ANDROID.md)。
+
+## ⚠️ 已知限制
+
+- **没有云端备份/同步**：旧 README 写过“密钥云端备份、跨设备同步”，但 Web/Android 代码里没有网络请求或云端实现；当前所有操作都在本机。README 已按实际功能修正。
+- **没有完整性校验**：密文包/密钥被篡改或口令错误时，可能得到乱码或直接报错；没有 MAC/AEAD。
+- **大文件占用内存高**：Python 和 JS 都是整文件读入内存再转 hex，内存约为文件的 2~3 倍；超大文件可能卡死。
+- **多文件下载可能被浏览器拦截**：Web 解密后逐个触发下载，Chrome/Edge 可能要求允许多文件下载。
+- **没有口令找回**：口令/密钥丢失即无法恢复。
+- **Android 是测试包**：targetSdk 30，申请了 `MANAGE_EXTERNAL_STORAGE` 等权限，适合侧载/自用，不适合直接上架 Google Play。
+- **`PasskyForAndroid` 名字有误导**：它实际是 Windows MAUI WebView 外壳；真正 Android 源码是 HBuilderX 工程。
+- **GitHub Actions 的 Android 工作流是实验性 Cordova 构建**，产物和 HBuilder 正式 APK 不一定一致，Release 里的 APK 以实际构建记录为准。
+
+## 🛠️ 本次更新（2026-11）
+
+- 仓库从 `PassKey-PassWord` / `Passkey-Password` 重命名为 **PassKey-FileCrypt**（GitHub + Gitee）。
+- README/CHANGELOG/CONTRIBUTING/Issue 模板全部按**实际功能**重写，删除“云端同步”等未实现描述。
+- 明确标注 XOR/编码只是混淆，不是强加密。
+- 修复 Python 拖拽带空格路径解析错误（改用 `tk.splitlist`）。
+- 修复 Python 后台线程直接弹 `messagebox` 的线程安全问题（改为 `root.after`）。
+- 统一 Gitee 根目录源码结构，补 GitHub LICENSE，移除 GitHub 的 `PasskyForAndroid` 占位文件。
+- 新增 `SECURITY.md`、`docs/ANDROID.md`，并把 Web manifest/页面品牌改为 PassKey-FileCrypt。
+
+## 🧑‍💻 开发与构建
+
+- Python 依赖：`tkinterdnd2`；打包：`pyinstaller` + `build.bat` / `PassKey.spec`。
+- Web：纯静态 HTML/CSS/JS，直接打开 `V2.1.1_WEB/index.html`。
+- Android：HBuilderX 5+ App 工程，见 `docs/ANDROID.md`。
+- GitHub Actions：`build-android.yml` 是实验性 Cordova 离线 APK 构建；正式 APK 仍以 HBuilder 构建为准。
+
+## 📄 文档
+
+- [CHANGELOG.md](CHANGELOG.md)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [SECURITY.md](SECURITY.md)
+- [docs/ANDROID.md](docs/ANDROID.md)
+- [Linux Beta README](v1.1.1-beta-for-Linux/README.md)
+- [macOS Beta README](v1.1.1-beta-for-Mac/README.md)
+
+## 📜 开源协议
+
+MIT。仅供学习、参考和二次练习；禁止用于恶意加密、锁机、勒索等违法违规用途。
