@@ -46,7 +46,7 @@
 
 - **GitHub Release**：<https://github.com/WiseWang1013/PassKey-FileCrypt/releases>
 - **Gitee Release**：<https://gitee.com/WiseWang1013/PassKey-FileCrypt/releases>
-- **Web 在线版（如果 GitHub Pages 已启用）**：<https://wisewang1013.github.io/PassKey-FileCrypt/V2.1.1_WEB/index.html>
+- **Web 在线版**：<https://wisewang1013.github.io/PassKey-FileCrypt/V2.1.1_WEB/index.html>
 - 也可以直接打开仓库里的 `V2.1.1_WEB/index.html`，不需要服务器。
 
 Android APK 是测试构建包，未上架应用商店；安装时需要允许“未知来源”。离线包与联网包的区别主要是网络权限，**当前代码没有实现云端同步**，详见下面的“已知限制”。
